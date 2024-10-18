@@ -1,26 +1,18 @@
-def check_alphabetical_order(array):
-    for i in range(1, len(array)):
-        if array[i] < array[i - 1]:
-            return False
-    return True
+
+import numpy as np
+
+def find_positive_columns(matrix):
+    """Находит номера столбцов с только положительными элементами в матрице."""
+    return [col for col in range(matrix.shape[1]) if np.all(matrix[:, col] > 0)]
 
 def main():
-    arrays = []
-
-    for i in range(5):
-        user_input = input(f"Введите элементы массива {i + 1} (через пробел): ")
-        array = user_input.split()
-        arrays.append(array)
-
-    found = False
-
-    for index, array in enumerate(arrays):
-        if check_alphabetical_order(array):
-            print(f"Массив {index + 1} расположен в алфавитном порядке.")
-            found = True
-
-    if not found:
-        print("Нет массивов с буквами в алфавитном порядке.")
+    # Генерация двумерных массивов размером до 10x10
+    matrices = [np.random.uniform(-10, 10, (np.random.randint(1, 11), np.random.randint(1, 11))) for _ in range(2)]
+    
+    for i, matrix in enumerate(matrices, start=1):
+        print(f"\nМатрица {i}:\n{matrix}")
+        positive_columns = find_positive_columns(matrix)
+        print(f"Номера столбцов с положительными элементами: {positive_columns or 'нет'}.")
 
 if __name__ == "__main__":
     main()
